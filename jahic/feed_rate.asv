@@ -1,0 +1,17 @@
+% Feed rate
+
+function F_in = feed_rate(t, split)
+% split(1) = batch(gly) -> fed-batch(gly)
+% split(2) = fed-batch(gly) -> fed-batch(meth)
+% split(3) = fed-batch(meth) -> constant-fed(meth)
+% F_in -> mL/h
+
+if (t >= split(1)) && (t < split(2))
+    F_in = 0;
+elseif (t >= split(2)) && (t < split(3))
+    F_in = 38.5*exp(0.18*t);
+elseif (t >= split(2)) && (t < split(3))
+    F_in = 10.5*exp(0.22*(t-split(2)));
+else
+    F_in = 10.5*exp(0.22*(split(3)-split(2)));
+end
