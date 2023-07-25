@@ -5,7 +5,7 @@
 % S = concentration of substrate
 % OCR = oxygen consumption rate
 
-function f = ODEsystem_jahic(t, y, p, split)
+function f = ODEsystem_jahic(t, y, p, split, muu)
 %% description for the vector components
 % p(1) = Cs         % y(1) = X          
 % p(2) = Cx         % y(2) = S      
@@ -18,7 +18,7 @@ function f = ODEsystem_jahic(t, y, p, split)
 % p(9) = Yos_en
          
 % Feed_rate (mL/h)
-F_in = feed_rate(t,split);
+F_in = feed_rate(t,split, muu);
 
 % Volume (L)
 V = 3;

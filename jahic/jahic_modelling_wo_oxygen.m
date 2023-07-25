@@ -26,7 +26,7 @@ clear; close all; clc;
 
 step = 10;
 muu = 0.55;
-split = [25, 27.5, 31, 32.5, 34, 40];
+split = [0, 27.5, 31, 32.5, 34, 100];
 t1 = linspace(split(1),split(2),step);
 t2 = linspace(split(2),split(3),step);
 t3 = linspace(split(3),split(4),step);
@@ -57,7 +57,7 @@ p5 = [0.375,0.96,0.1,0.013,0.57,780,0.36,0.5,1.5];
 % y_01(2) = S(Initial substrate conc. g/L)
 % y_01(3) = OCR(Initial oxygen consumption rate g/h)
 
-y_01 = [15,16,6.6];
+y_01 = [0.025,38,0];  % X0 = 0이면 시뮬레이션이 안돌아가는 문제?
 
 % solve systems of ODE(for glycerol period)
 [t1, y1] = ode15s(@(t,y) ODEsystem_jahic(t, y, p1, split,muu), t1, y_01);
@@ -96,7 +96,7 @@ plot(t_all, y_all(:,1));
 xlabel('t')
 ylabel('g/L')
 legend('X')
-ylim([0,100])
+ylim([0,200])
 
 subplot(2,3,2)
 plot(t_all, y_all(:,2)); 
@@ -110,7 +110,7 @@ plot(t_all, y_all(:,3));
 xlabel('t')
 ylabel('g/h')
 legend('OCR')
-ylim([0,22])
+ylim([0,32])
 
 subplot(2,3,4)
 plot(t_all, y_all(:,1:3)); 
@@ -119,7 +119,7 @@ legend('X','S','OCR')
 
 %% DEBUGGING F_in
 
-t_check = linspace(25,40,500);
+t_check = linspace(0,100,500);
 F_in = zeros(length(t_check),1);
 
 for i = 1:length(t_check)
